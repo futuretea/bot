@@ -23,17 +23,11 @@ steps:
     dockerfile: github-bot/Dockerfile
     password:
       from_secret: docker_password
-    repo: rancher/harvester-github-bot
+    repo: harbor.futuretea.me/rancher/harvester-github-bot
+    registry: harbor.futuretea.me
     tag: "master"
     username:
       from_secret: docker_username
-  when:
-    instance:
-    - drone-publish.rancher.io
-    branch:
-    - harvester
-    event:
-    - pull_request
 
 - name: "publish github-bot"
   image: plugins/docker
@@ -45,17 +39,11 @@ steps:
     dockerfile: github-bot/Dockerfile
     password:
       from_secret: docker_password
-    repo: rancher/harvester-github-bot
+    repo: harbor.futuretea.me/rancher/harvester-github-bot
+    registry: harbor.futuretea.me
     tag: "master"
     username:
       from_secret: docker_username
-  when:
-    instance:
-    - drone-publish.rancher.io
-    branch:
-    - harvester
-    event:
-    - push
 
 volumes:
 - name: socket
@@ -85,12 +73,5 @@ steps:
         from_secret: token
     API_SERVER_ARRD:
         from_secret: api_server_addr
-  when:
-    instance:
-    - drone-publish.rancher.io
-    branch:
-    - harvester
-    event:
-    - push
 depends_on:
 - harvester-bot
